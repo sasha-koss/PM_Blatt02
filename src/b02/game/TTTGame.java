@@ -4,51 +4,53 @@ import java.util.List;
 
 public class TTTGame implements Game{
 	
-	Player pX,pO;
-	List<Move> gameMoves;
+	Player pX,pO,pActive;
+	List<TTTMove> gameMoves;
+	List<Move> remainingMoves;
+	Move gMove;
 	
 	public TTTGame() {
 		// TODO Auto-generated constructor stub
 		//gameMoves; // Row,Column Moveset als Move(0,0)... 0,1 0,2 etc
 		
+		for(int i = 0; i<3;i++){
+			for(int j = 0; j<3;j++){
+				gameMoves.add(new TTTMove(i,j));
+			}
+		}
 	}
 
 	@Override
 	public void setPlayerX(Player p) {
-
 		this.pX = p;
 	}
 
 	@Override
 	public void setPlayerO(Player p) {
-
 		this.pO = p;
 	}
 
 	@Override
 	public Player currentPlayer() {
-		
 		// List<Move>.get(IndexofLastMove).getPlayer ? Wenn Playereintrag in Move Klasse.
-		return null;
+		return pActive;
 	}
 
 	@Override
 	public List<Move> remainingMoves() {
-
-		// Moves mit Player Eintrag?
-		return null;
+		return remainingMoves;
 	}
 
 	@Override
 	public void doMove(Move m) {
 		// Move mit currentPlayer eintrag in List<Move> eintragen?
-
+		remainingMoves.remove(m);
 		
 	}
 
 	@Override
 	public void undoMove(Move m) {
-
+		remainingMoves.add((TTTMove) m);
 		// Moves mit Index versehen? somit einfach zu löschen
 	}
 
@@ -58,6 +60,7 @@ public class TTTGame implements Game{
 		// evalState liefert Spielstatus?!
 		if(evalState(currentPlayer()) == 0) return false;
 		else return true;
+		
 	}
 
 	@Override

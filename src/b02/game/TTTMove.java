@@ -3,12 +3,10 @@ package b02.game;
 public class TTTMove implements Move {
 	
 	int row,column;
-	Player p;
-	public TTTMove(int pRow, int pColumn, Player p) {
+	public TTTMove(int pRow, int pColumn) {
 		// TODO Auto-generated constructor stub
 		this.row = pRow;
 		this.column = pColumn;
-		this.p = p;
 	}
 
 	@Override
@@ -22,5 +20,4 @@ public class TTTMove implements Move {
 		// TODO Auto-generated method stub
 		return this.column;
 	}
-
 }
