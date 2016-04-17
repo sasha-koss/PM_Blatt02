@@ -9,13 +9,13 @@ public class TTTGameStrategy implements GameStrategy{
 	MinMaxStrategy mms;
 	
 	public TTTGameStrategy() {
-		// TODO Auto-generated constructor stub
+		
 		mms = new MinMaxStrategy();
 	}
 
 	@Override
 	public Move nextMove(Game g) {
-		// TODO Auto-generated method stub
+		// Naechsten Zug berechnen
 		return mms.nextMove(g);
 	}
 

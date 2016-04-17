@@ -7,15 +7,17 @@ public class TTTGame implements Game{
 	Player pX,pO,pActive;
 	List<TTTMove> gameMoves;
 	List<Move> remainingMoves;
-	Move gMove;
+	char[][] field;
+	boolean ended= false;
 	
 	public TTTGame() {
-		// TODO Auto-generated constructor stub
 		//gameMoves; // Row,Column Moveset als Move(0,0)... 0,1 0,2 etc
-		
+		this.pActive = pX;
 		for(int i = 0; i<3;i++){
-			for(int j = 0; j<3;j++){
-				gameMoves.add(new TTTMove(i,j));
+			for(int j = i; j<3;j++){
+				this.gameMoves.add(new TTTMove(i,j));
+				this.remainingMoves.add(new TTTMove(i,j));
+				this.field[i][j]=' ';
 			}
 		}
 	}
@@ -33,48 +35,105 @@ public class TTTGame implements Game{
 	@Override
 	public Player currentPlayer() {
 		// List<Move>.get(IndexofLastMove).getPlayer ? Wenn Playereintrag in Move Klasse.
-		return pActive;
+		
+		return this.pActive;
 	}
 
 	@Override
 	public List<Move> remainingMoves() {
-		return remainingMoves;
+		return this.remainingMoves;
 	}
 
 	@Override
 	public void doMove(Move m) {
 		// Move mit currentPlayer eintrag in List<Move> eintragen?
-		remainingMoves.remove(m);
+		this.field[m.getRow()][m.getColumn()] = this.pActive.getSymbol();
+		this.remainingMoves.remove(m);
+		if(this.pActive==this.pX) this.pActive=this.pO;
+		else this.pActive=this.pX;
 		
 	}
 
 	@Override
 	public void undoMove(Move m) {
+		field[m.getRow()][m.getColumn()] = ' ';
+		if(pActive==pX) pActive=pO;
+		else pActive=pX;
 		remainingMoves.add((TTTMove) m);
-		// Moves mit Index versehen? somit einfach zu löschen
 	}
 
 	@Override
 	public boolean ended() {
-
-		// evalState liefert Spielstatus?!
-		if(evalState(currentPlayer()) == 0) return false;
-		else return true;
-		
+		return this.ended;
 	}
 
 	@Override
 	public int evalState(Player p) {
+	    // Bewertung des Zustandes aus Sicht des Players p
+	    // +1: p hat gewonnen
+	    // -1: p hat verloren
+	    // 0: Unentschieden
 
-		// Gewinnermittlung ist fast fertig, muss diese nur noch an List<Move> anpassen.
-		return 0;
+		int winCounter=0;
+		
+		for(int i = 0; i < 3; i++)
+		{	
+			for(int ii = 0; ii < 3; ii++)		
+			{
+				if(field[i][ii]==p.getSymbol()) winCounter++;
+				if(field[i][ii]!=p.getSymbol() && field[i][ii]!=' ') winCounter--;
+			}
+			if(winCounter==3) return 1;
+			if(winCounter==-3) return -1;
+		}
+		winCounter=0;
+		
+		//vertical
+		for(int i = 0; i < 3; i++)
+		{	
+			for(int ii = 0; ii < 3; ii++)		
+			{
+				if(field[ii][i]==p.getSymbol()) winCounter++;
+				if(field[ii][i]!=p.getSymbol() && field[ii][i]!=' ') winCounter--;
+			}
+			if(winCounter==3) return 1;
+			if(winCounter==-3) return -1;
+		}
+		winCounter=0;
+		
+		//diagonal
+		for(int i = 0 ;i<3;i++){
+			if(field[i][i]==p.getSymbol()) winCounter++;
+			if(field[i][i]!=p.getSymbol() && field[i][i]!=' ') winCounter--;
+		}
+		if(winCounter==3) return 1;
+		if(winCounter==-3) return -1;
+		
+		winCounter=0;
+		//anti diagonal
+		for(int i = 0; i < 3; i++)
+		{	
+			for(int ii = 2; ii < 0; ii--)		
+			{
+				if(field[i][ii]==p.getSymbol()) winCounter++;
+				if(field[i][ii]!=p.getSymbol() && field[i][ii]!=' ') winCounter--;
+			}
+			if(winCounter==3) return 1;
+			if(winCounter==-3) return -1;
+		}
+		if(remainingMoves.isEmpty()){
+			this.ended = true;
+			return 0;
+		}
+		else return -20;		
 	}
 
 	@Override
 	public void printField() {
-
-		// List<Move> in for .lenght printen.
-		
+		for(int i = 0; i<3;i++){
+				System.out.println("-----");
+				System.out.println(this.field[i][0]+"|"+this.field[i][1]+"|"+this.field[i][2]);
+		}
 	}
 
 }
