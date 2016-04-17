@@ -1,4 +1,6 @@
-package b02.game;
+package app;
+
+import b02.game.Move;
 
 public class TTTMove implements Move {
 	

@@ -1,15 +1,18 @@
-package b02.game;
+package app;
 
+import b02.game.Game;
+import b02.game.Move;
+import b02.game.Player;
 import b02.strategy.*;
 
 public class TTTPlayer implements Player {
 
-	char pSymbol;
-	GameStrategy gs;
+	private char pSymbol;
+	private GameStrategy gs;
 	
 	public TTTPlayer(char pSymbol){
 		this.pSymbol = pSymbol;
-		gs = new TTTGameStrategy();
+		//this.gs = new GameStrategy();
 	}
 	
 	@Override
@@ -19,12 +22,13 @@ public class TTTPlayer implements Player {
 
 	@Override
 	public Move nextMove(Game g) {
-		return gs.nextMove(g);
+		Move m = this.gs.nextMove(g);
+		return m;
 	}
 
 	@Override
 	public char getSymbol() {
-		return pSymbol;
+		return this.pSymbol;
 	}
 
 }

@@ -1,6 +1,8 @@
-package b02.strategy;
+package app;
 
 import b02.game.*;
+import b02.strategy.GameStrategy;
+import b02.strategy.MinMaxStrategy;
 
 
 public class TTTGameStrategy implements GameStrategy{
