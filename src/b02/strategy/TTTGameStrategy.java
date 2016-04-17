@@ -8,15 +8,14 @@ public class TTTGameStrategy implements GameStrategy{
 	Game g = new TTTGame();
 	MinMaxStrategy mms;
 	
-	public TTTGameStrategy() {
-		
-		mms = new MinMaxStrategy();
+	public TTTGameStrategy() {	
+		this.mms = new MinMaxStrategy();
 	}
 
 	@Override
 	public Move nextMove(Game g) {
 		// Naechsten Zug berechnen
-		return mms.nextMove(g);
+		return this.mms.nextMove(g);
 	}
 
 }

@@ -1,5 +1,6 @@
 package b02.game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TTTGame implements Game{
@@ -12,9 +13,11 @@ public class TTTGame implements Game{
 	
 	public TTTGame() {
 		//gameMoves; // Row,Column Moveset als Move(0,0)... 0,1 0,2 etc
-		this.pActive = pX;
+		this.gameMoves = new ArrayList<TTTMove>();
+		this.remainingMoves = new ArrayList<Move>();
+		this.field = new char[3][3];
 		for(int i = 0; i<3;i++){
-			for(int j = i; j<3;j++){
+			for(int j = 0; j<3;j++){
 				this.gameMoves.add(new TTTMove(i,j));
 				this.remainingMoves.add(new TTTMove(i,j));
 				this.field[i][j]=' ';
@@ -24,6 +27,7 @@ public class TTTGame implements Game{
 
 	@Override
 	public void setPlayerX(Player p) {
+		if (this.pActive==null) this.pActive = p;
 		this.pX = p;
 	}
 
@@ -34,8 +38,6 @@ public class TTTGame implements Game{
 
 	@Override
 	public Player currentPlayer() {
-		// List<Move>.get(IndexofLastMove).getPlayer ? Wenn Playereintrag in Move Klasse.
-		
 		return this.pActive;
 	}
 
@@ -46,12 +48,12 @@ public class TTTGame implements Game{
 
 	@Override
 	public void doMove(Move m) {
-		// Move mit currentPlayer eintrag in List<Move> eintragen?
-		this.field[m.getRow()][m.getColumn()] = this.pActive.getSymbol();
+		int row = m.getRow();
+		int column = m.getColumn();
+		this.field[row][column] = this.currentPlayer().getSymbol();
 		this.remainingMoves.remove(m);
 		if(this.pActive==this.pX) this.pActive=this.pO;
 		else this.pActive=this.pX;
-		
 	}
 
 	@Override
