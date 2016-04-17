@@ -6,6 +6,7 @@ public class TTTGame implements Game{
 
 	public TTTGame() {
 		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
@@ -59,6 +60,7 @@ public class TTTGame implements Game{
 	@Override
 	public void printField() {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
