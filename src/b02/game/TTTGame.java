@@ -3,64 +3,74 @@ package b02.game;
 import java.util.List;
 
 public class TTTGame implements Game{
-
+	
+	Player pX,pO;
+	List<Move> gameMoves;
+	
 	public TTTGame() {
 		// TODO Auto-generated constructor stub
+		//gameMoves; // Row,Column Moveset als Move(0,0)... 0,1 0,2 etc
 		
 	}
 
 	@Override
 	public void setPlayerX(Player p) {
-		// TODO Auto-generated method stub
-		
+
+		this.pX = p;
 	}
 
 	@Override
 	public void setPlayerO(Player p) {
-		// TODO Auto-generated method stub
-		
+
+		this.pO = p;
 	}
 
 	@Override
 	public Player currentPlayer() {
-		// TODO Auto-generated method stub
+		
+		// List<Move>.get(IndexofLastMove).getPlayer ? Wenn Playereintrag in Move Klasse.
 		return null;
 	}
 
 	@Override
 	public List<Move> remainingMoves() {
-		// TODO Auto-generated method stub
+
+		// Moves mit Player Eintrag?
 		return null;
 	}
 
 	@Override
 	public void doMove(Move m) {
-		// TODO Auto-generated method stub
+		// Move mit currentPlayer eintrag in List<Move> eintragen?
+
 		
 	}
 
 	@Override
 	public void undoMove(Move m) {
-		// TODO Auto-generated method stub
-		
+
+		// Moves mit Index versehen? somit einfach zu löschen
 	}
 
 	@Override
 	public boolean ended() {
-		// TODO Auto-generated method stub
-		return false;
+
+		// evalState liefert Spielstatus?!
+		if(evalState(currentPlayer()) == 0) return false;
+		else return true;
 	}
 
 	@Override
 	public int evalState(Player p) {
-		// TODO Auto-generated method stub
+
+		// Gewinnermittlung ist fast fertig, muss diese nur noch an List<Move> anpassen.
 		return 0;
 	}
 
 	@Override
 	public void printField() {
-		// TODO Auto-generated method stub
-		
+
+		// List<Move> in for .lenght printen.
 		
 	}
 
